@@ -1,0 +1,15 @@
+CAPI=2:
+
+name: hugom:example:generic_adder
+virtual:
+  - hugom:example:adder
+filesets:
+  rtl:
+    files:
+      - adder.sv
+    file_type: systemVerilogSource
+
+targets:
+  default:
+    filesets:
+      - rtl
