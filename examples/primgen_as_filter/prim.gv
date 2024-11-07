@@ -1,0 +1,53 @@
+digraph G {
+prim [label="lowrisc:prim:all"]
+primv [label="fixme:prim:prim_vendors", style=filled, fillcolor=yellow]
+primx [label="lowrisc:prim_xilinx:all"]
+prims [label="lowrisc:prim_super_secret:all", style=filled, fillcolor=yellow]
+primg [label="lowrisc:prim_generic:all"]
+
+primha [label="lowrisc:prim:half_adder"]
+primfa [label="lowrisc:prim:full_adder"]
+primra [label="lowrisc:prim:ripple_adder"]
+
+primxha [label="lowrisc:prim_xilinx:half_adder"]
+primxfa [label="lowrisc:prim_xilinx:full_adder"]
+primxra [label="lowrisc:prim_xilinx:ripple_adder"]
+
+primgha [label="lowrisc:prim_generic:half_adder"]
+primgfa [label="lowrisc:prim_generic:full_adder"]
+primgra [label="lowrisc:prim_generic:ripple_adder"]
+
+primsra [label="lowrisc:prim_supersecret:ripple_adder", style=filled, fillcolor=yellow]
+
+top -> some_ip;
+top -> other_ip;
+top -> primv;
+some_ip -> primfa;
+other_ip -> primsra;
+
+prim -> primha;
+primfa -> primha;
+prim -> primfa;
+primra -> primfa;
+prim -> primra;
+
+primx   -> primxha;
+primxfa -> primxha;
+primx   -> primxfa;
+primxra -> primxfa;
+primx   -> primxra;
+
+primg   -> primgha;
+primgfa -> primgha;
+primg   -> primgfa;
+primgra -> primgfa;
+primg   -> primgra;
+
+prims   -> primsra;
+
+#prim -> primv [style=dotted];
+primv -> prim;
+primv -> primx;
+primv -> primg;
+primv -> prims;
+}

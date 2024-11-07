@@ -1,0 +1,27 @@
+digraph G {
+
+primha [label="lowrisc:prim:half_adder"]
+primfa [label="lowrisc:prim:full_adder"]
+
+primxha [label="lowrisc:prim_xilinx:half_adder"]
+primxfa [label="lowrisc:prim_xilinx:full_adder"]
+
+primgha [label="lowrisc:prim_generic:half_adder"]
+primgfa [label="lowrisc:prim_generic:full_adder"]
+	
+primsra [label="lowrisc:prim_supersecret:ripple_adder", style=filled, fillcolor=yellow]
+
+top -> some_ip;
+top -> other_ip;
+some_ip -> primfa;
+other_ip -> primsra;
+
+primfa -> primxfa;
+primfa -> primgfa;
+primfa -> primha;
+
+primxfa -> primxha;
+
+primgfa -> primgha;
+
+}
