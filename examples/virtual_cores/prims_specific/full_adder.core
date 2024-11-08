@@ -1,12 +1,12 @@
 CAPI=2:
 
-name: hugom:prim_specific:full_adder
+name: hugom:prims_specific:full_adder
 virtual:
   - hugom:prim:full_adder
 filesets:
   rtl:
     depend:
-      - hugom:prim_specific:half_adder
+      - hugom:prims_specific:half_adder
     files:
       - full_adder.sv
     file_type: systemVerilogSource

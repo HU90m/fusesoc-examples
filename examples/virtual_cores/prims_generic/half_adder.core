@@ -1,6 +1,6 @@
 CAPI=2:
 
-name: hugom:prim_generic:half_adder
+name: hugom:prims_generic:half_adder
 virtual:
   - hugom:prim:half_adder
 filesets:

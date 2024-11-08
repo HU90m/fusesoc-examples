@@ -1,6 +1,6 @@
 CAPI=2:
 
-name: hugom:prim_generic:adder
+name: hugom:prims_generic:adder
 virtual:
   - hugom:prim:adder
 filesets:
