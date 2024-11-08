@@ -1,8 +1,8 @@
 CAPI=2:
 
-name: hugom:example:ripple_adder
+name: hugom:prim_specific:adder
 virtual:
-  - hugom:example:adder
+  - hugom:prim:adder
 filesets:
   rtl:
     files:

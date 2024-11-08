@@ -4,8 +4,8 @@ filesets:
   files_top:
     depend:
       - hugom:example:multiplier
-      - hugom:example:generic_adder
-      #- hugom:example:ripple_adder
+      - hugom:prim_generic:adder
+      #- hugom:prim_specific:adder
     files:
       - top.sv
     file_type: systemVerilogSource

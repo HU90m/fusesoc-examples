@@ -33,6 +33,7 @@ module full_adder (
   or u_or (carry_o, b, c);
 endmodule : full_adder
 
+// A Ripple Adder
 module adder #(
   Width = 8
 ) (
