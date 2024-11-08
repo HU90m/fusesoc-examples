@@ -1,11 +1,11 @@
 module half_adder (
-  input logic in1,
-  input logic in2,
+  input logic in1_i,
+  input logic in2_i,
 
-  output logic sum,
-  output logic carry
+  output logic sum_o,
+  output logic carry_o
 );
-  xor u_xor (sum, in1, in2);
-  and u_and (carry, in1, in2);
+  xor u_xor (sum_o, in1_i, in2_i);
+  and u_and (carry_o, in1_i, in2_i);
 endmodule : half_adder
 

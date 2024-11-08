@@ -40,57 +40,57 @@ module multiplier (
   adder #(
     .Width(8)
   ) u_adder_0 (
-    .in1   ({1'b0, pp[0][7:1]}),
-    .in2   (pp[1]),
-    .sum   (s0),
+    .in1_i ({1'b0, pp[0][7:1]}),
+    .in2_i (pp[1]),
+    .sum_o (s0),
     .carry_o (c0)
   );
   adder #(
     .Width(8)
   ) u_adder_1 (
-    .in1   ({c0, s0[7:1]}),
-    .in2   (pp[2]),
-    .sum   (s1),
+    .in1_i ({c0, s0[7:1]}),
+    .in2_i (pp[2]),
+    .sum_o (s1),
     .carry_o (c1)
   );
   adder #(
     .Width(8)
   ) u_adder_2 (
-    .in1   ({c1, s1[7:1]}),
-    .in2   (pp[3]),
-    .sum   (s2),
+    .in1_i ({c1, s1[7:1]}),
+    .in2_i (pp[3]),
+    .sum_o (s2),
     .carry_o (c2)
   );
   adder #(
     .Width(8)
   ) u_adder_3 (
-    .in1   ({c2, s2[7:1]}),
-    .in2   (pp[4]),
-    .sum   (s3),
+    .in1_i ({c2, s2[7:1]}),
+    .in2_i (pp[4]),
+    .sum_o (s3),
     .carry_o (c3)
   );
   adder #(
     .Width(8)
   ) u_adder_4 (
-    .in1   ({c3, s3[7:1]}),
-    .in2   (pp[5]),
-    .sum   (s4),
+    .in1_i ({c3, s3[7:1]}),
+    .in2_i (pp[5]),
+    .sum_o (s4),
     .carry_o (c4)
   );
   adder #(
     .Width(8)
   ) u_adder_5 (
-    .in1   ({c4, s4[7:1]}),
-    .in2   (pp[6]),
-    .sum   (s5),
+    .in1_i ({c4, s4[7:1]}),
+    .in2_i (pp[6]),
+    .sum_o (s5),
     .carry_o (c5)
   );
   adder #(
     .Width(8)
   ) u_adder_6 (
-    .in1   ({c5, s5[7:1]}),
-    .in2   (pp[7]),
-    .sum   (s6),
+    .in1_i ({c5, s5[7:1]}),
+    .in2_i (pp[7]),
+    .sum_o (s6),
     .carry_o (c6)
   );
 
