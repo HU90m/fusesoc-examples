@@ -1,7 +1,7 @@
 CAPI=2:
 name: hugom:prims_specific:all
 virtual:
-  - hugom:prim:all
+  - hugom:prims:all
 filesets:
   rtl:
     depend:

@@ -2,7 +2,7 @@ CAPI=2:
 
 name: hugom:prims_generic:adder
 virtual:
-  - hugom:prim:adder
+  - hugom:prims:adder
 filesets:
   rtl:
     files:
