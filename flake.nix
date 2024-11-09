@@ -18,6 +18,7 @@
   } @ inputs: let
     system_outputs = system: let
       pkgs = import nixpkgs {inherit system;};
+      inherit (pkgs.lib) getExe;
 
       pythonEnv = let
         poetry2nix = inputs.poetry2nix.lib.mkPoetry2Nix {inherit pkgs;};
@@ -32,7 +33,11 @@
       devShells.default = pkgs.mkShell {
         name = "prim-lib-examples";
         buildInputs = with pkgs; [libelf zlib];
-        nativeBuildInputs = with pkgs; [verilator pythonEnv];
+        nativeBuildInputs = with pkgs; [graphviz verilator pythonEnv];
+        shellHook = ''
+          export REPO_ROOT="$(${getExe pkgs.git} rev-parse --show-toplevel)"
+          export PYTHONPATH="$REPO_ROOT/python_plugins";
+        '';
       };
     };
   in
