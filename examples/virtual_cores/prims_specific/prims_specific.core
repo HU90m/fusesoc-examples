@@ -7,4 +7,4 @@ filesets:
     depend:
       - hugom:prims_specific:adder
       - hugom:prims_specific:full_adder
-      - hugom:prims_specific:half_adder
+      - hugom:prims_generic:half_adder

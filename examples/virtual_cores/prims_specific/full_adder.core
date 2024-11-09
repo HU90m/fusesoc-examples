@@ -6,7 +6,7 @@ virtual:
 filesets:
   rtl:
     depend:
-      - hugom:prims_specific:half_adder
+      - hugom:prims_generic:half_adder
     files:
       - full_adder.sv
     file_type: systemVerilogSource
