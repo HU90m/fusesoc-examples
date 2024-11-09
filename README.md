@@ -31,5 +31,6 @@ Run the virtual cores example:
 
 ```sh
 # In a `nix develop` shell...
-fusesoc run hugom:example:virtual_cores
+pushd examples/virtual_cores
+fusesoc run hugom:example:top
 ```

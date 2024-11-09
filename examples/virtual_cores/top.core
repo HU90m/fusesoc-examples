@@ -1,5 +1,5 @@
 CAPI=2:
-name: hugom:example:virtual_cores
+name: hugom:example:top
 filesets:
   files_top:
     depend:
