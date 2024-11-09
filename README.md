@@ -33,4 +33,6 @@ Run the virtual cores example:
 # In a `nix develop` shell...
 pushd examples/virtual_cores
 fusesoc run hugom:example:top
+# Or to use specific prims
+fusesoc run --flag select_prims --flag prims_specific hugom:example:top
 ```

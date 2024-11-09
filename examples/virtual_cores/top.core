@@ -3,9 +3,9 @@ name: hugom:example:top
 filesets:
   files_top:
     depend:
-      - hugom:example:multiplier
-      #- hugom:prims_generic:all
-      - hugom:prims_specific:all
+      - "hugom:example:multiplier"
+      - "!select_prims ? (hugom:prims_generic:all)"
+      - "prims_specific ? (hugom:prims_specific:all)"
     files:
       - top.sv
     file_type: systemVerilogSource
