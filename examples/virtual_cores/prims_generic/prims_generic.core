@@ -8,3 +8,7 @@ filesets:
       - hugom:prims_generic:adder
       - hugom:prims_generic:full_adder
       - hugom:prims_generic:half_adder
+targets:
+  default:
+    filesets:
+      - rtl
