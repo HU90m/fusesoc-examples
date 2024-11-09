@@ -1,0 +1,13 @@
+CAPI=2:
+
+name: hugom:prims_generic:half_adder
+filesets:
+  rtl:
+    files:
+      - half_adder.sv
+    file_type: systemVerilogSource
+
+targets:
+  default:
+    filesets:
+      - rtl

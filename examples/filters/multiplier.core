@@ -1,0 +1,14 @@
+CAPI=2:
+name: hugom:example:multiplier
+filesets:
+  files_rtl:
+    depend:
+      - hugom:prims:adder
+    files:
+      - multiplier.sv
+    file_type: systemVerilogSource
+
+targets:
+  default:
+    filesets:
+      - files_rtl

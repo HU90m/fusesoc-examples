@@ -1,0 +1,15 @@
+CAPI=2:
+
+name: hugom:prims_specific:full_adder
+filesets:
+  rtl:
+    depend:
+      - hugom:prims_generic:half_adder
+    files:
+      - full_adder.sv
+    file_type: systemVerilogSource
+
+targets:
+  default:
+    filesets:
+      - rtl

@@ -1,0 +1,13 @@
+CAPI=2:
+
+name: hugom:prims_generic:adder
+filesets:
+  rtl:
+    files:
+      - adder.sv
+    file_type: systemVerilogSource
+
+targets:
+  default:
+    filesets:
+      - rtl

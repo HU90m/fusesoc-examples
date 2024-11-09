@@ -1,0 +1,8 @@
+CAPI=2:
+name: hugom:prims:all
+filesets:
+  rtl:
+    depend:
+      - hugom:prims:adder
+      - hugom:prims:full_adder
+      - hugom:prims:half_adder

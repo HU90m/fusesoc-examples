@@ -1,0 +1,28 @@
+CAPI=2:
+name: hugom:example:top
+filesets:
+  files_top:
+    depend:
+      - hugom:example:multiplier
+      - hugom:prims_generic:all
+      - hugom:prims_specific:all
+    files:
+      - top.sv
+    file_type: systemVerilogSource
+
+targets:
+  default:
+    filters: [prims_prune]
+    default_tool: verilator
+    filesets:
+      - files_top
+    toplevel: top
+    tools:
+      verilator:
+        mode: binary
+        verilator_options:
+          - '--timing'
+          - '--trace-fst'
+          - '--timescale 1ns/1ns'
+        run_options:
+          - '+trace=trace.fst'
