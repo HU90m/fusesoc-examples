@@ -1,0 +1,82 @@
+digraph G {
+  graph[
+    layout="dot",
+    ranksep=1,
+    compound=true,
+    colorscheme=ylgnbu9,
+    color=5,
+    fontcolor=5,
+    bgcolor=1,
+  ]
+  node [colorscheme=ylgnbu9, color=9, fontcolor=9 shape=rect]
+  edge [colorscheme=ylgnbu9, color=9]
+
+  subgraph cluster_abs {
+    label="Abstract Primitives"
+    style=dashed;
+    node [style=dashed]
+
+    abs_all [label="hugom:prims:all"]
+    abs_adder [label="hugom:prims:adder"]
+    abs_full_adder [label="hugom:prims:full_adder"]
+    abs_half_adder [label="hugom:prims:half_adder"]
+  }
+
+  subgraph cluster_gen {
+    label="Generic Primitives"
+    gen_all [label="hugom:prims_generic:all"]
+    gen_adder [label="hugom:prims_generic:adder"]
+    gen_full_adder [label="hugom:prims_generic:full_adder"]
+    gen_half_adder [label="hugom:prims_generic:half_adder"]
+  }
+
+  subgraph cluster_spe {
+    label="Specific Primitives"
+
+    spe_all [label="hugom:prims_specific:all"]
+    spe_adder [label="hugom:prims_specific:adder"]
+    spe_full_adder [label="hugom:prims_specific:full_adder"]
+  }
+
+  top [label="hugom:example:top"]
+  array_multiplier [label="hugom:example:array_multiplier"]
+  wallace_tree_multiplier [label="hugom:example:wallace_tree_multiplier"]
+
+  top -> array_multiplier;
+  top -> wallace_tree_multiplier;
+
+  array_multiplier -> abs_adder;
+  wallace_tree_multiplier -> abs_all;
+
+  gen_all -> {gen_adder gen_full_adder gen_half_adder};
+
+  spe_all -> {spe_adder spe_full_adder gen_half_adder};
+  spe_adder -> {spe_full_adder gen_half_adder};
+  spe_full_adder -> gen_half_adder;
+
+  edge [style=dashed];
+  abs_all -> {gen_all spe_all};
+
+  abs_adder -> {gen_adder spe_adder};
+
+  abs_full_adder -> {gen_full_adder spe_full_adder};
+
+  abs_half_adder -> gen_half_adder;
+
+
+  /*
+  subgraph cluster_sec {
+    label="Secret Primitives"
+    sec_all [label="hugom:prims_secret:all"]
+    sec_adder [label="hugom:prims_secret:adder"]
+  }
+
+  edge [style=solid];
+  sec_all -> {sec_adder spe_full_adder gen_half_adder}
+  sec_adder -> {spe_full_adder gen_half_adder};
+
+  edge [style=dashed];
+  abs_all -> sec_all;
+  abs_adder -> sec_adder;
+  */
+}
