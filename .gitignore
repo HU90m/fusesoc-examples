@@ -1,2 +1,5 @@
 # FuseSoC's build location
 build/
+
+# Python caches
+**/__pycache__/
