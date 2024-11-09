@@ -2,7 +2,7 @@
  * A simple combinational unsigned multiplier
  */
 module multiplier #(
-  parameter unsigned Width = 8
+  parameter int unsigned Width = 8
 ) (
   input  logic [ Width   -1:0] data_in1_i,
   input  logic [ Width   -1:0] data_in2_i,

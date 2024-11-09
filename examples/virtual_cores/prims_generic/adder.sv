@@ -1,5 +1,5 @@
 module adder #(
-  Width = 8
+  parameter int unsigned Width = 8
 ) (
   input  logic [Width-1:0] in1_i,
   input  logic [Width-1:0] in2_i,
