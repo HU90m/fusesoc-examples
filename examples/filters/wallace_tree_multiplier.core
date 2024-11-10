@@ -1,0 +1,14 @@
+CAPI=2:
+name: hugom:example:wallace_tree_multiplier
+filesets:
+  files_rtl:
+    depend:
+      - hugom:prims:all
+    files:
+      - wallace_tree_multiplier.sv
+    file_type: systemVerilogSource
+
+targets:
+  default:
+    filesets:
+      - files_rtl
