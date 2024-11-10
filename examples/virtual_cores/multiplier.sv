@@ -1,5 +1,5 @@
 /*
- * A simple combinational unsigned multiplier
+ * A simple unsigned array multiplier
  */
 module multiplier #(
   parameter int unsigned Width = 8
@@ -23,7 +23,7 @@ module multiplier #(
 
   for (genvar i = 0; i < Width-1; ++i) begin : adders
     adder #(
-      .Width(8)
+      .Width(Width)
     ) u_adder (
       .in1_i ({c[i], s[i][Width-1:1]}),
       .in2_i (pp[i+1]),
