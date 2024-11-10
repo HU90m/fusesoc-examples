@@ -16,7 +16,7 @@ module top;
     multiplicand_t multiplicand, multiplier;
     product_t product_array, product_wallace_tree;
 
-    multiplier #(
+    array_multiplier #(
       .Width(Width)
     ) u_array_multiplier (
         .data_in1_i (multiplicand),

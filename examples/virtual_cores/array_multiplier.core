@@ -1,11 +1,11 @@
 CAPI=2:
-name: hugom:example:multiplier
+name: hugom:example:array_multiplier
 filesets:
   files_rtl:
     depend:
       - hugom:prims:adder
     files:
-      - multiplier.sv
+      - array_multiplier.sv
     file_type: systemVerilogSource
 
 targets:

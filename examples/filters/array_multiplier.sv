@@ -1,7 +1,7 @@
 /*
- * A simple combinational unsigned multiplier
+ * A simple unsigned array multiplier
  */
-module multiplier #(
+module array_multiplier #(
   parameter int unsigned Width = 8
 ) (
   input  logic [ Width   -1:0] data_in1_i,
@@ -23,7 +23,7 @@ module multiplier #(
 
   for (genvar i = 0; i < Width-1; ++i) begin : adders
     adder #(
-      .Width(8)
+      .Width(Width)
     ) u_adder (
       .in1_i ({c[i], s[i][Width-1:1]}),
       .in2_i (pp[i+1]),
@@ -38,4 +38,4 @@ module multiplier #(
   for (genvar idx = 0; idx < Width-1; ++idx) begin : gen_output_lower_bits
     assign data_out_o[idx] = s[idx][0];
   end : gen_output_lower_bits
-endmodule : multiplier
+endmodule : array_multiplier

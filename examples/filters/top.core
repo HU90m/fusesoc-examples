@@ -3,7 +3,7 @@ name: hugom:example:top
 filesets:
   files_top:
     depend:
-      - hugom:example:multiplier
+      - hugom:example:array_multiplier
       - hugom:prims_generic:all
       - hugom:prims_specific:all
     files:

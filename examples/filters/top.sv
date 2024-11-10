@@ -16,7 +16,7 @@ module top;
     multiplicand_t data_in1_i, data_in2_i;
     product_t data_out_o;
 
-    multiplier u_multiplier (
+    array_multiplier u_multiplier (
         .data_in1_i,
         .data_in2_i,
         .data_out_o
