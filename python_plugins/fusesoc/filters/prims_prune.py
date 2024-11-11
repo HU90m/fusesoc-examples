@@ -58,6 +58,7 @@ class Prims_prune:
                     f"implementations of the {name(core)} given: {core} "
                     f"and {concrete_prims_non_fallback_map[name(core)]}."
                 )
+                exit(1)
             else:
                 concrete_prims_non_fallback_map[name(core)] = core
 
@@ -68,20 +69,19 @@ class Prims_prune:
             if is_fallback_prim(core)
         }
 
-        # Check all abstract primitives.
-        for core in edam["dependencies"]:
-            if not is_abstract_prim(core):
-                continue
-            if (name(core) not in concrete_prims_non_fallback_map) or (
-                name(core) not in concrete_prims_fallback_map
-            ):
-                logger.error(f"There is no implementation of {core}.")
-
         # Complete concrete primitives map,
         # prefering the non-fallback implementation.
         concrete_prims_map = (
             concrete_prims_fallback_map | concrete_prims_non_fallback_map
         )
+
+        # Check all abstract primitives.
+        for core in edam["dependencies"]:
+            if not is_abstract_prim(core):
+                continue
+            if name(core) not in concrete_prims_map:
+                logger.error(f"There is no implementation of {core}.")
+                exit(1)
 
         # Pruning helper functions
         def unused_prim(core: str) -> bool:
@@ -89,16 +89,19 @@ class Prims_prune:
 
         def replace_with_selected_prims(vlnv: str) -> str:
             if unused_prim(vlnv):
-                vlnv = concrete_prims_map[name(vlnv)]
+                replacement = concrete_prims_map[name(vlnv)]
+                logger.info(f"Replacing {vlnv} with {replacement}.")
+                return replacement
             return vlnv
 
         # Remove unused primitives from the map
         # and convert dependencies to their concrete form.
         edam["dependencies"] = {
-            # Replace each primitive with selected concrete type
+            # Replace each primitive with selected concrete type.
+            # Intermediate set ensures there are no duplicates.
             core: list(set(map(replace_with_selected_prims, core_deps)))
             for (core, core_deps) in edam["dependencies"].items()
-            # Remove unused primitives
+            # Remove unused primitives.
             if not unused_prim(core)
         }
 

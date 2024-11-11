@@ -5,8 +5,9 @@ filesets:
     depend:
       - hugom:example:array_multiplier
       - hugom:example:wallace_tree_multiplier
-      - hugom:prims_generic:all
-      - hugom:prims_specific:all
+      - "!select_prims ? (hugom:prims_generic:all)"
+      - "prims_specific ? (hugom:prims_specific:all)"
+      - "prims_secret ? (hugom:prims_secret:all)"
     files:
       - top.sv
     file_type: systemVerilogSource
