@@ -13,7 +13,7 @@ filesets:
 
 targets:
   default:
-    filters: [prims_prune_priority]
+    filters: [prims_prune]
     default_tool: verilator
     filesets:
       - files_top
