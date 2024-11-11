@@ -43,8 +43,8 @@ digraph G {
   }
 
   top [label="hugom:example:top"]
-  array_multiplier [label="hugom:example:array_multiplier"]
-  wallace_tree_multiplier [label="hugom:example:wallace_tree_multiplier"]
+  array_multiplier [label="hugom:multiplier:array_multiplier"]
+  wallace_tree_multiplier [label="hugom:multiplier:wallace_tree_multiplier"]
 
   top -> array_multiplier;
   top -> wallace_tree_multiplier;

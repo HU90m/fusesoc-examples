@@ -24,7 +24,7 @@ The use of a particular ASIC standard library or any information about it is oft
 
 The diagram below shows the dependency tree of the toy example.
 
-![A graphical representation of the toy example](doc/primitive_libraries.svg)
+![A graphical representation of the toy example](doc/toy_example.svg)
 
 The top level (`hugom:example:top`) depends on two multiplier IP blocks.
 `hugom:multiplier:array_multiplier` only requires the adder primitive, so depends only on `hugom:prims:adder`.
