@@ -2,7 +2,9 @@
 
 This repository contains examples to help one better understand FuseSoC features.
 
-- [prims_lib](./prims_lib): An example of how to set up primitive libraries for your project.
+- [prims_lib](./prims_lib):
+    A demonstration project highlighting approaches to handling primitive libraries
+    in FuseSoC-based projects.
 
 
 ## Developer Environment
