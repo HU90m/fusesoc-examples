@@ -35,7 +35,7 @@ PRIM_PRIORITY: tuple[str, ...] = ("specific", "generic")
 # PRIM_PRIORITY: tuple[str, ...] = ("generic", "specific")
 
 
-class Prims_prune:
+class Prims_prune_priority:
     def run(self, edam, _):
         # All concrete primitives
         concrete_prims = [
