@@ -1,5 +1,7 @@
 # FuseSoC Primitive Libraries Examples
 
+*If you haven't already, [set up your development environment](../README.md#developer-environment).*
+
 A demonstration project highlighting two approaches to handling primitive libraries in FuseSoC-based HDL build systems.
 
 ## Overview
@@ -19,8 +21,6 @@ There are two possible approaches for prim library support in FuseSoC: **virtual
 
 ## Commands
 
-If you want an easy way to pull in all the required dependencies, have a look at the [Developer Environment](#developer-environment) section.
-
 Run the virtual cores example:
 
 ```sh
@@ -29,18 +29,4 @@ pushd examples/virtual_cores
 fusesoc run hugom:example:top
 # Or to use specific prims
 fusesoc run --flag select_prims --flag prims_specific hugom:example:top
-```
-
-
-## Developer Environment
-
-The Nix shell provides all.
-
-Install Nix using the instructions at: <https://zero-to-nix.com/start/install>
-
-Start a project-specific development shell in the project directory using:
-
-```sh
-# In fusesoc-prim-lib-examples directory...
-nix develop .
 ```
