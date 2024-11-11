@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: lowRISC contributors
+// SPDX-License-Identifier: Apache-2.0
+// SPDX-FileContributor: Hugo McNally
+
 module top;
     localparam real HalfClockPeriod = 25ns; // 20MHz
     localparam int unsigned Width = 4;

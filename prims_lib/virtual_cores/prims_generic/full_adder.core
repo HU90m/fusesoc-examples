@@ -1,4 +1,7 @@
 CAPI=2:
+# SPDX-FileCopyrightText: lowRISC contributors
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileContributor: Hugo McNally
 
 name: hugom:prims_generic:full_adder
 virtual:

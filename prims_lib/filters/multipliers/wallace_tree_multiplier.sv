@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: lowRISC contributors
+// SPDX-License-Identifier: Apache-2.0
+// SPDX-FileContributor: Hugo McNally
+
 // A wallace tree multiplier
 module wallace_tree_multiplier (
   input  logic [3:0] data_in1_i,

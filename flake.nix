@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: lowRISC contributors
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileContributor: Hugo McNally
 {
   description = "FuseSoC Prim Lib Examples";
   inputs = {

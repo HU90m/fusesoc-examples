@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: lowRISC contributors
+// SPDX-License-Identifier: Apache-2.0
+// SPDX-FileContributor: Hugo McNally
+
 // Carry look ahead adder
 module adder #(
   parameter int unsigned Width = 8

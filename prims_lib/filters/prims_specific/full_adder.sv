@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: lowRISC contributors
+// SPDX-License-Identifier: Apache-2.0
+// SPDX-FileContributor: Hugo McNally
+
 module full_adder (
   input logic carry_i,
   input logic in1_i,
