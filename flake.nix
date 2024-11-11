@@ -33,7 +33,7 @@
         };
 
       buildInputs = with pkgs; [libelf zlib];
-      nativeBuildInputs = with pkgs; [reuse graphviz verilator pythonEnv];
+      nativeBuildInputs = with pkgs; [lychee reuse graphviz verilator pythonEnv];
 
       lints = pkgs.stdenv.mkDerivation {
         name = "fusesoc-examples-lints";
@@ -45,10 +45,17 @@
         checkPhase = ''
           HOME=$TMPDIR
 
+          echo Checking license headers...
           reuse lint
+
+          echo Checking documentation links...
+          lychee --offline --no-progress --include-fragments .
+
+          echo Checking python quality...
           ruff format --check
           ruff check
 
+          echo Checking examples build and run...
           prims_checks() {
             fusesoc run --setup hugom:example:top
             fusesoc run --flag select_prims --flag prims_specific --setup hugom:example:top
