@@ -1,5 +1,5 @@
 CAPI=2:
-name: hugom:example:array_multiplier
+name: hugom:multiplier:array_multiplier
 filesets:
   files_rtl:
     depend:

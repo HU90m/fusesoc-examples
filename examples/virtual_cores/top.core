@@ -3,8 +3,8 @@ name: hugom:example:top
 filesets:
   files_top:
     depend:
-      - "hugom:example:array_multiplier"
-      - "hugom:example:wallace_tree_multiplier"
+      - "hugom:multiplier:array_multiplier"
+      - "hugom:multiplier:wallace_tree_multiplier"
       - "!select_prims ? (hugom:prims_generic:all)"
       - "prims_specific ? (hugom:prims_specific:all)"
       - "prims_secret ? (hugom:prims_secret:all)"
