@@ -38,6 +38,15 @@ A useful feature is for a primitives library to be able to implement only a subs
 In the toy example, `hugom:prims_specific` doesn't implement a half adder and instead makes use of the `hugom:prims_generic:half_adder`.
 
 
+### The complete toy example
+
+Now that we have a grasp of the dependency tree, let's add a third implementation of the primitives: `prims_secret`.
+This secret primitives library only implements an adder. For it's full and half adder it relies on `prims_specific` and `prims_generic` respectively.
+The full dependency tree can be seen below.
+
+![A graphical representation of the full toy example](doc/toy_example_extended.svg)
+
+
 ## How to set up primitive libraries in FuseSoC
 
 Back in 2021, FuseSoC 1.12.0 had no way to handle primitive libraries, which is a reason behind the lowRISC fork of FuseSoC.
@@ -95,7 +104,7 @@ We go one step further here and allow one to select an implementation without ha
 This enables one to set flags in the command line to select a primitive.
 For example, one can set the flags `not_prims_generic` and `prims_specifc` to select the `prims_specific` implementations.
 
-An excerpt of [`virtual_cores/top.sv`](virtual_cores/top.sv):
+An excerpt of [`virtual_cores/top.core`](virtual_cores/top.core):
 
 ```yaml
 name: hugom:example:top
@@ -136,4 +145,4 @@ Looking at the `Preparing` messages, we can see `all` and `adder` are taken from
 Because `prims_secret` doesn't implement `full_adder` or `half_adder`, instead relying on `prims_specific` and `prims_generic` respectively for them.
 These primitives are taken from these libraries.
 
-Do revisit the [The Toy Example](#the-toy-example) section to refresh your memory on the dependency graph.
+Do revisit [the complete toy example](#the-complete-toy-example) section to refresh your memory on the dependency graph.
