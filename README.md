@@ -28,10 +28,12 @@ nix develop .
 You'll need to install a recent version of [verilator](https://www.veripool.org/verilator/)
 and [poetry](https://python-poetry.org/).
 
-Then run the following to get poetry to install all the required python dependencies.
+Then run `poetry shell` install all the required python dependencies.
+Once in this poetry environment, you'll need to add the [`python_plugins`](./python_plugins) directory to your `PYTHONPATH` environment variable.
 
 ```sh
 poetry shell
+PYTHONPATH="$(pwd)/python_plugins:$PYTHONPATH"
 ```
 
 
