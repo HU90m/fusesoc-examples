@@ -14,7 +14,7 @@ SPDX-FileCopyrightText = "lowRISC contributors"
 SPDX-License-Identifier = "Apache-2.0"
 
 [[annotations]]
-path = "prims_lib/primgen_as_filter/*"
+path = "prims_lib/doc/olofs_initial_notes/*"
 precedence = "aggregate"
 SPDX-FileCopyrightText = "Olof Kindgren"
 SPDX-License-Identifier = "Apache-2.0"
