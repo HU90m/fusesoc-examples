@@ -6,7 +6,7 @@ A demonstration project highlighting approaches to handling primitive libraries 
 
 ## What are primitive libraries
 
-Primitive (prim) libraries are common amongst HDL projects with multiple targets, i.e. simulators, synthesis for an FPGA or synthesis for an ASIC process node.
+Primitive (prim) libraries are common amongst HDL projects with multiple targets, i.e. a simulator, synthesis for an FPGA or synthesis for an ASIC process node.
 Primitives provide the basic blocks/modules to digital design engineers,
 and importantly enable these basic blocks to be changed depending on the target.
 This enable primitive modules to be tailored to their target.
@@ -26,14 +26,14 @@ The diagram below shows the dependency tree of the toy example.
 
 ![A graphical representation of the toy example](doc/toy_example.svg)
 
-The top level (`hugom:example:top`) depends on two multiplier IP blocks.
-`hugom:multiplier:array_multiplier` only requires the adder primitive, so depends only on `hugom:prims:adder`.
+The top level (`hugom:example:top`) depends on two multiplier IP blocks: `hugom:multiplier:array_multiplier` and `hugom:multiplier:wallace_tree_multiplier`.
+The array multiplier only requires the adder primitive, so depends only on `hugom:prims:adder`.
 
 The dotted line around `hugom:prims:adder`, and all other cores in it's `hugom:prims` library,
 denote these are abstract cores without any real implementation.
 They then depend on their possible implementations, which either come from either the `hugom:prims_generic` or `hugom:prims_specific` libraries.
 
-The `hugom:multiplier:wallace_tree_multiplier` not only depends on an adder module but also half and full adder modules.
+`hugom:multiplier:wallace_tree_multiplier` not only depends on an adder module but also half and full adder modules.
 Instead of having to specifying all the dependencies, it can depend on `hugom:prims:all` to declare that it depends on all modules provided by the primitives library.
 
 A useful feature is for a primitives library to be able to implement only a subset of the primitives required by a primitives library, and then be able to specify an implementation to fall back on for the primitives that it doesn't implement.
