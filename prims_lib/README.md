@@ -50,7 +50,7 @@ The full dependency tree can be seen below.
 ## How to set up primitive libraries in FuseSoC
 
 Back in 2021, FuseSoC 1.12.0 had no way to handle primitive libraries, which is a reason behind the lowRISC fork of FuseSoC.
-A brief explanation of what this fork added and how it was used by OpenTitan to enable primitive libraries can be read [here](doc/how-opentitan-handles-primitives.md).
+**A brief explanation of what this fork added and how it was used by OpenTitan to enable primitive libraries can be read [here](doc/how-opentitan-handles-primitives.md).**
 
 As of FuseSoC versions 2.4, there are two ways to enable the use of primitive libraries: *virtual cores* or *filters*.
 Examples of each approach can be found in the [`virtual_cores`](./virtual_cores) and [`filters`](./filters) directories.
