@@ -18,7 +18,7 @@ filesets:
 
 targets:
   default:
-    filters: [prims_prune]
+    filters: [prims_harden]
     default_tool: verilator
     filesets:
       - files_top

@@ -65,7 +65,7 @@ fusesoc run --flag not_prims_generic --flag prims_secret hugom:example:top
 ```
 
 
-### Virtual the virtual cores approach
+### The virtual cores approach
 
 Virtual cores are similar to virtual methods in C++ and System Verilog.
 A virtual core doesn't have an implementation or core file of it's own, instead other core files can declare they provide the functionality of a virtual core.
@@ -123,7 +123,7 @@ Notice, depending on whether the flag is set (or not set in the `prims_generic` 
 If you run the following command from the `virtual_cores` directory, you should see:
 
 ```console
-$ fusesoc run --flag select_prims --flag prims_secret hugom:example:top
+$ fusesoc run --flag not_prims_generic --flag prims_secret hugom:example:top
 INFO: Preparing hugom:prims_generic:half_adder:0
 INFO: Preparing hugom:prims_specific:full_adder:0
 INFO: Preparing hugom:prims_secret:adder:0
@@ -141,12 +141,62 @@ INFO: Running simulation
 - Verilator: cpu 0.002 s on 1 threads; alloced 253 MB
 ```
 
-Looking at the `Preparing` messages, we can see `all` and `adder` are taken from the `prims_secret` library which was selected by the `--flag prims_secret` argument.
+Looking at the 'Preparing' messages, we can see `all` and `adder` are taken from the `prims_secret` library which was selected by the `--flag prims_secret` argument.
 Because `prims_secret` doesn't implement `full_adder` or `half_adder`, instead relying on `prims_specific` and `prims_generic` respectively for them.
 These primitives are taken from these libraries.
 
 Do revisit [the complete toy example](#the-complete-toy-example) section to refresh your memory on the dependency graph.
 
+
+### The filter based approach
+
+You can implement the same behaviour with FuseSoC's filters.
+All of the System Verilog files and most of the core files in the [`filters`](./filters) example are exactly the same.
+
+The main difference is that instead of declaring each primitive as a virtual core provider.
+We create empty core files in [`prims`](./filters/prims) to act as abstract cores.
+
+Then in [the top core file](./filters/top.core) we declare a filter:
+
+```yaml
+targets:
+  default:
+    filters: [prims_harden]
+```
+
+This instructs FuseSoC to run the [`prims_harden.py`](../python_plugins/fusesoc/filters/prims_harden.py) filter.
+This filter runs through the dependency tree checking only one implementation of each primitive exists.
+Then replaces these empty abstract primitive cores with the selected implementation of each primitive.
+
+If you run the following command from the `filters` directory, you should see:
+
+```console
+$ fusesoc run --flag not_prims_generic --flag prims_secret hugom:example:top
+INFO: Preparing hugom:prims:adder:0
+INFO: Preparing hugom:prims:all:0
+INFO: Preparing hugom:prims_generic:half_adder:0
+INFO: Preparing hugom:multiplier:array_multiplier:0
+INFO: Preparing hugom:multiplier:wallace_tree_multiplier:0
+INFO: Preparing hugom:prims_specific:full_adder:0
+INFO: Preparing hugom:prims_secret:adder:0
+INFO: Preparing hugom:prims_secret:all:0
+INFO: Preparing hugom:example:top:0
+INFO: Applying filter prims_harden
+INFO: Replacing hugom:prims:adder:0 with hugom:prims_secret:adder:0.
+INFO: Replacing hugom:prims:all:0 with hugom:prims_secret:all:0.
+INFO: Setting up project
+INFO: Building simulation model
+INFO: Running
+INFO: Running simulation
+- src/hugom_example_top_0/top.sv:80: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.028 2024-08-21
+- Verilator: $finish at 400ns; walltime 0.001 s; speed 213.311 us/s
+- Verilator: cpu 0.002 s on 1 threads; alloced 253 MB
+```
+
+The 'Replacing' messages come from the prims_harden filter, to inform us of when it's replacing an empty abstract primitive with a concrete implementation.
+
+*I've also created an alternative [`prims_prune_priority.py`](../python_plugins/fusesoc/filters/prims_prune_priority.py) filter which you can look at if curious.*
 
 ## Some further thoughts
 

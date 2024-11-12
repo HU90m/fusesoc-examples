@@ -42,7 +42,7 @@ def is_fallback_prim(vlnv: str) -> bool:
     return prim_type(vlnv) == FALLBACK_PRIM_TYPE
 
 
-class Prims_prune:
+class Prims_harden:
     def run(self, edam, _):
         # All concrete primitives
         concrete_prims: list[str] = [
