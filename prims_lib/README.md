@@ -146,3 +146,26 @@ Because `prims_secret` doesn't implement `full_adder` or `half_adder`, instead r
 These primitives are taken from these libraries.
 
 Do revisit [the complete toy example](#the-complete-toy-example) section to refresh your memory on the dependency graph.
+
+
+## Some further thoughts
+
+Currently in the examples, modules within a primitives library depend on specific implementations of other modules in the primitives library.
+This could lead to multiple versions of the same primitive being bought in and breaking builds.
+A simple solution would be to have primitive modules only depend on abstract primitives.
+With the one exceptions of the `prims:all` implementation which specifies the concrete implementations for each primitive in the library.
+This will improve the ease of implementation re-use when adding new primitives.
+
+Another note, FuseSoC currently correctly complains when multiple implementations of a **virtual core** exist.
+However, if no implementation is given it will silently select an implementation for you.
+This behaviour could cause confusion.
+A better behaviour would be to complain about no implementation being specified.
+To see this in action run the following from the `virtual_cores` directory.
+
+```sh
+# Complains when two implementations are specified
+fusesoc run --flag prims_specific hugom:example:top
+# Doesn't complain when no implementation specified
+# instead silently picks one for you.
+fusesoc run --flag not_prims_generic hugom:example:top
+```
