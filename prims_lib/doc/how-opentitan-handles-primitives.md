@@ -13,6 +13,12 @@ One can swap out the generic implementation for a specific Xilinx implementation
 
 Not only does `primgen` allow one to avoid manually writing these abstract modules, but it allows users to add a new primitives library with the library prefix `prims_` and `primgen` will automatically add it as an option to any of the abstract modules it has an implementation for.
 
+Besides requiring a patch atop FuseSoC this approach has two major downsides:
+
+1. The module hierarchy being dependant on the selected implementation (e.g. `prim_pad_wrapper.prim_xilinx_pad_wrapper` as oppose to just `prim_pad_wrapper`) is annoying for for constraints and DV generally, especially when looking to reuse DV infrastructure.
+
+2. A more general downside is that calling generators in a different order can cause a different result and generators could cause cause a non-converging dependency generation, because generators are being allowed to look at the build graph.
+
 ```systemverilog
 // Copyright lowRISC contributors (OpenTitan project).
 // Licensed under the Apache License, Version 2.0, see LICENSE for details.
