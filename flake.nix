@@ -58,8 +58,8 @@
           echo Checking examples build and run...
           prims_checks() {
             fusesoc run --setup hugom:example:top
-            fusesoc run --flag select_prims --flag prims_specific --setup hugom:example:top
-            fusesoc run --flag select_prims --flag prims_secret hugom:example:top
+            fusesoc run --flag not_prims_generic --flag prims_specific --setup hugom:example:top
+            fusesoc run --flag not_prims_generic --flag prims_secret hugom:example:top
           }
           pushd prims_lib/virtual_cores
             prims_checks

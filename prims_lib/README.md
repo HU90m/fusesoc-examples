@@ -1,6 +1,4 @@
-# FuseSoC Primitive Libraries Examples
-
-*If you haven't already, [set up your development environment](../README.md#developer-environment).*
+# FuseSoC primitive libraries examples
 
 A demonstration project highlighting approaches to handling primitive libraries in FuseSoC-based projects.
 
@@ -20,7 +18,7 @@ A motivating example is ASIC standard libraries.
 The use of a particular ASIC standard library or any information about it is often sensitive, and cannot appear in the upstream repository.
 
 
-## The Toy Example
+## The toy example
 
 The diagram below shows the dependency tree of the toy example.
 
@@ -48,10 +46,94 @@ A brief explanation of what this fork added and how it was used by OpenTitan to 
 As of FuseSoC versions 2.4, there are two ways to enable the use of primitive libraries: *virtual cores* or *filters*.
 Examples of each approach can be found in the [`virtual_cores`](./virtual_cores) and [`filters`](./filters) directories.
 
-The same commands can be used from either directory to run the directories' example:
+The same commands, written below, can be used from either directory to run the directories' example.
+*If you haven't already, [set up your development environment](../README.md#developer-environment).*
 
 ```sh
 fusesoc run hugom:example:top
-fusesoc run --flag select_prims --flag prims_specific hugom:example:top
-fusesoc run --flag select_prims --flag prims_secret hugom:example:top
+fusesoc run --flag not_prims_generic --flag prims_specific hugom:example:top
+fusesoc run --flag not_prims_generic --flag prims_secret hugom:example:top
 ```
+
+
+### Virtual the virtual cores approach
+
+Virtual cores are similar to virtual methods in C++ and System Verilog.
+A virtual core doesn't have an implementation or core file of it's own, instead other core files can declare they provide the functionality of a virtual core.
+
+In the primitive library example, our abstract primitives library `hugom:prims` consists of virtual cores.
+These virtual cores can be depended upon by the multipliers.
+For example, the array multiplier depends on the abstract `hugom:prims:adder`.
+
+An excerpt from [`virtual_cores/multipliers/array_multiplier.core`](virtual_cores/multipliers/array_multiplier.core):
+
+```yaml
+name: hugom:multiplier:array_multiplier
+filesets:
+  files_rtl:
+    depend:
+      - hugom:prims:adder
+```
+
+There are three available implementations of the adder: `hugom:prims_generic:adder`, `hugom:prims_specific:adder` and `hugom:prims_secret:adder`.
+In each of their core files, you'll notice they declare that they provide `hugom:prims:adder`.
+
+An excerpt of [`virtual_cores/prims_specific/adder.core`](virtual_cores/prims_specific/adder.core):
+
+```yaml
+name: hugom:prims_specific:adder
+virtual:
+  - hugom:prims:adder
+```
+
+So how do you select an implementation to use?
+You add it as a dependency to a core file.
+Importantly, this can be the top core file which allows you to specify the particular implementation you'd like once at the top of the dependency tree.
+All the dependencies on virtual cores are then replaced with a concrete implementation.
+
+We go one step further here and allow one to select an implementation without having to edit the [`top.core`](virtual_cores/top.core) file, by making use use of FuseSoC's flags feature.
+This enables one to set flags in the command line to select a primitive.
+For example, one can set the flags `not_prims_generic` and `prims_specifc` to select the `prims_specific` implementations.
+
+An excerpt of [`virtual_cores/top.sv`](virtual_cores/top.sv):
+
+```yaml
+name: hugom:example:top
+filesets:
+  files_top:
+    depend:
+      - "hugom:multiplier:array_multiplier"
+      - "hugom:multiplier:wallace_tree_multiplier"
+      - "!not_prims_generic ? (hugom:prims_generic:all)"
+      - "prims_specific ? (hugom:prims_specific:all)"
+      - "prims_secret ? (hugom:prims_secret:all)"
+```
+
+Notice, depending on whether the flag is set (or not set in the `prims_generic` case) the primitives block is included as a dependency.
+
+If you run the following command from the `virtual_cores` directory, you should see:
+
+```console
+$ fusesoc run --flag select_prims --flag prims_secret hugom:example:top
+INFO: Preparing hugom:prims_generic:half_adder:0
+INFO: Preparing hugom:prims_specific:full_adder:0
+INFO: Preparing hugom:prims_secret:adder:0
+INFO: Preparing hugom:multiplier:array_multiplier:0
+INFO: Preparing hugom:prims_secret:all:0
+INFO: Preparing hugom:multiplier:wallace_tree_multiplier:0
+INFO: Preparing hugom:example:top:0
+INFO: Setting up project
+INFO: Building simulation model
+INFO: Running
+INFO: Running simulation
+- src/hugom_example_top_0/top.sv:80: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.028 2024-08-21
+- Verilator: $finish at 400ns; walltime 0.001 s; speed 197.039 us/s
+- Verilator: cpu 0.002 s on 1 threads; alloced 253 MB
+```
+
+Looking at the `Preparing` messages, we can see `all` and `adder` are taken from the `prims_secret` library which was selected by the `--flag prims_secret` argument.
+Because `prims_secret` doesn't implement `full_adder` or `half_adder`, instead relying on `prims_specific` and `prims_generic` respectively for them.
+These primitives are taken from these libraries.
+
+Do revisit the [The Toy Example](#the-toy-example) section to refresh your memory on the dependency graph.

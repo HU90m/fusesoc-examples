@@ -9,7 +9,7 @@ filesets:
     depend:
       - "hugom:multiplier:array_multiplier"
       - "hugom:multiplier:wallace_tree_multiplier"
-      - "!select_prims ? (hugom:prims_generic:all)"
+      - "!not_prims_generic ? (hugom:prims_generic:all)"
       - "prims_specific ? (hugom:prims_specific:all)"
       - "prims_secret ? (hugom:prims_secret:all)"
     files:
