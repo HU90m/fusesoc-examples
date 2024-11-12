@@ -5,7 +5,7 @@
 digraph G {
   graph[
     layout="dot",
-    ranksep=1,
+    ranksep=1.6,
     compound=true,
     colorscheme=ylgnbu9,
     color=5,
@@ -42,10 +42,21 @@ digraph G {
     spe_full_adder [label="hugom:prims_specific:full_adder"]
   }
 
+  subgraph cluster_sec {
+    label="Secret Primitives"
+    sec_all [label="hugom:prims_secret:all"]
+    sec_adder [label="hugom:prims_secret:adder"]
+  }
+
   top [label="hugom:example:top"]
   array_multiplier [label="hugom:multiplier:array_multiplier"]
   wallace_tree_multiplier [label="hugom:multiplier:wallace_tree_multiplier"]
 
+  node [shape=point];
+  gen_half_adder_p;
+  spe_full_adder_p;
+
+  edge [style=solid];
   top -> array_multiplier;
   top -> wallace_tree_multiplier;
 
@@ -54,14 +65,26 @@ digraph G {
 
   gen_all -> {gen_adder gen_full_adder gen_half_adder};
 
-  spe_all -> {spe_adder spe_full_adder gen_half_adder};
-  spe_adder -> {spe_full_adder gen_half_adder};
-  spe_full_adder -> gen_half_adder;
+  spe_all -> spe_adder;
+  spe_adder -> spe_full_adder;
 
-  edge [style=dashed];
-  abs_all -> {gen_all spe_all};
+  sec_all -> sec_adder;
 
-  abs_adder -> {gen_adder spe_adder};
+  gen_half_adder_p -> gen_half_adder;
+  spe_full_adder_p -> spe_full_adder;
+
+  edge [dir=none];
+  spe_all -> {spe_full_adder_p, gen_half_adder_p};
+  spe_adder -> gen_half_adder_p;
+  spe_full_adder -> gen_half_adder_p;
+
+  sec_all -> {spe_full_adder_p, gen_half_adder_p};
+  sec_adder -> {spe_full_adder_p, gen_half_adder_p};
+
+  edge [style=dashed, dir=forward];
+  abs_all -> {gen_all spe_all sec_all};
+
+  abs_adder -> {gen_adder spe_adder, sec_adder};
 
   abs_full_adder -> {gen_full_adder spe_full_adder};
 
