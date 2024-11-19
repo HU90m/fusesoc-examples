@@ -1,0 +1,24 @@
+CAPI=2:
+# SPDX-FileCopyrightText: lowRISC contributors
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileContributor: Hugo McNally
+
+name: lowrisc:systems:top_darjeeling
+filesets:
+  files_top:
+    depend:
+      - lowrisc:systems:darjeeling_pinmux_pkg
+      - lowrisc:ip:spi_host
+    files:
+      - top_darjeeling.sv
+    file_type: systemVerilogSource
+
+targets:
+  default:
+    default_tool: verilator
+    filesets:
+      - files_top
+    toplevel: top_darjeeling
+    tools:
+      verilator:
+        mode: lint-only

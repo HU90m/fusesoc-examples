@@ -1,0 +1,18 @@
+CAPI=2:
+# SPDX-FileCopyrightText: lowRISC contributors
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileContributor: Hugo McNally
+
+name: lowrisc:ip:spi_host
+filesets:
+  rtl:
+    depend:
+      - lowrisc:ip_interfaces:pinmux_pkg
+    files:
+      - spi_host.sv
+    file_type: systemVerilogSource
+
+targets:
+  default:
+    filesets:
+      - rtl
